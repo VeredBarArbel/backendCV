@@ -1,0 +1,25 @@
+{% extends 'goBackBlock.html' %}
+
+{% block title %}Assignment 8 | Vered-Bar Arbel{% endblock %}
+
+{% block h1 %}
+    {% if name %}
+        HEY {{ name.first | default('first name', true) | upper }}-
+        {{ name.middle | default('middle name', true) | upper }} {{ name.last  | default('last name', true) | upper }}!
+    {% else %}
+        HEY THERE!
+    {% endif %}
+{% endblock %}
+
+{% block h3 %}Welcome to my music page{% endblock %}
+
+{% block goBack %}
+    <ul>
+        {% for band in music %}
+            <li>{{ band }}</li>
+        {% endfor %}
+    </ul>
+    <br>
+    {{ super() }}
+{% endblock %}
+

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact Me | Vered-Bar Arbel</title>
+    <link rel="stylesheet" href="static/CSS/CV.css">
+    <script src="CV.js"></script>
+</head>
+<body>
+
+    {% include 'header.html' %}
+<br>
+
+<div class="center" id="mainDiv">
+    <h1>Impressed?</h1>
+    <h3>Contact me!</h3>
+    <form action="">
+        <label for="fName">First Name</label>
+        <input type="text" name="fName" id="fName"> <br><br>
+        <label for="lName">Last Name</label>
+        <input type="text" name="lName" id="lName"> <br><br>
+        <label for="phoneNum">Phone Number</label>
+        <input type="tel" name="phoneNum" id="phoneNum" pattern="05[0-9]{1}-[0-9]{7}" value="ex: '050-1234567'">
+        <br><br>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"> <br><br>
+        <input type="submit" id="inTouch" onclick=beInTouch()>
+    </form>
+    <br><br><br>
+    <a href="/" id="goBack">Go back</a><br>
+</div>
+
+
+<!-- footer contact me -->
+{% include 'contact.html' %}
+
+</body>
+</html>
