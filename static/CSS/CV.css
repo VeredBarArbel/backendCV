@@ -173,9 +173,11 @@ form {
     display: inline-block;
 }
 
-#goBack {
+#goBack, .button {
     font-size: 200%;
+    font-family: firstFont;
     background-color: var(--black);
+    color: var(--white);
     margin: 7px;
     padding: 13px;
     border: var(--gold) solid 3px;

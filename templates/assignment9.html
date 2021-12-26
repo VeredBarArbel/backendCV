@@ -1,0 +1,59 @@
+{% extends 'goBackBlock.html' %}
+
+{% block title %}Assignment 9 | Vered-Bar Arbel{% endblock %}
+
+{% block h1 %}
+    {#  fill h1 #}
+{% endblock %}
+
+{% block h3 %}
+    {#    fill h3#}
+{% endblock %}
+
+{% block goBack %}
+    {% if session.username %}
+        <form action="/logout">
+            <input type="submit" class="button" value="Logout">
+        </form>
+    {% else %}
+        {#    Registration form#}
+        <h4>Register Now!</h4>
+        <form id="registrationForm" action="/assignment9" method="POST">
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username"> <br><br>
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password"> <br>
+            <input type="submit" class="button" value="Sign-Up!">
+        </form>
+    {% endif %}
+    <br>
+
+    {#    Search form#}
+    <h4>Search users by name:</h4>
+    <form id="searchForm" action="/assignment9" method="get">
+        <label for="searchName"></label>
+        Name: <input type="text" name="searchName" id="searchName"><br>
+        <input type="submit" class="button" value="Search">
+    </form>
+
+    <div id="searchResult">
+        <ul>
+            {% if allUsers %} {# empty search #}
+                {% for user, userInfo in allUsers.items() %}
+                    <li>Name: {{ userInfo['name'] }} Email: {{ userInfo['email'] }} B-day: {{ userInfo['b-day'] }}
+                        Favorite-Color: {{ userInfo['favoriteColor'] }}</li>
+                {% endfor %}
+            {% elif foundUser %} {# search with value #}
+                {% if foundUser == ' ' %} {# value wasn't found #}
+                    <li>Sorry, couldn't found any user with this name</li>
+                {% else %} {# value was found #}
+                    <li>Name: {{ foundUser['name'] }} Email: {{ foundUser['email'] }} B-day: {{ foundUser['b-day'] }}
+                        Favorite-Color: {{ foundUser['favoriteColor'] }}</li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+
+    {{ super() }}
+{% endblock %}
+

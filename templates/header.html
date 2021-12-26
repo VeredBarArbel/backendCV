@@ -3,5 +3,7 @@
         VERED-BAR ARBEL<br>
         INDUSTRIAL ENGINEERING AND MANAGEMENT STUDENT
     </p>
-    </p>
+    {% if session.username %}
+        <h4>Welcome Back, {{ session.username }}!</h4>
+    {% endif %}
 </header>
