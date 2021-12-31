@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, session, request
+import mysql.connector
 
 app = Flask(__name__)
 app.secret_key = '123'
@@ -10,6 +11,8 @@ users = {'user1': {'name': 'Ben', 'email': 'ben@gmail.com', 'b-day': '3/10/1995'
          'user6': {'name': 'Omer', 'email': 'ben@gmail.com', 'b-day': '11/2/1992', 'favoriteColor': 'gray'},
          'user7': {'name': 'Or', 'email': 'or@gmail.com', 'b-day': '31/12/1993', 'favoriteColor': 'black'}
          }
+##assignment10 setup
+# app.config.from_pyfile('settings.py')
 
 
 @app.route('/')
@@ -62,5 +65,12 @@ def logout_func():
     session['username'] = ''
     return redirect(url_for('assignment9'))
 
+####blueprint
+##assignment10
+from pages.assignment10.assignment10 import assignment10
+app.register_blueprint(assignment10)
+
+
+#main
 if __name__ == '__main__':
     app.run(debug=True)

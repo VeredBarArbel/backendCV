@@ -1,0 +1,69 @@
+{% extends 'goBackBlock.html' %}
+
+{% block title %}Assignment 10 | Vered-Bar Arbel{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='JS/assignment10.js') }}"></script>
+{% endblock %}
+
+{% block h1 %}ASSIGNMENT 10{% endblock %}
+
+{% block h3 %}Insertion, Update, Deletion & User's list{% endblock %}
+
+{% block goBack %}
+
+    {% for message in get_flashed_messages() %}
+        <span class="alert">{{ message }}</span>
+    {% endfor %}
+    {# insertion form #}
+    <h4>Sign Up!</h4>
+    <form id="insertionForm" action="/insertUser" method="POST">
+        <label for="name">Name </label>
+        <input type="text" name="name" id="name" required> <br><br>
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" placeholder="email@email.email"> <br><br>
+        <label for="b_day">Birth-Date: </label>
+        <input type="date" name="b_day" id="b_day"> <br><br>
+        <label for="favoriteColor">Favorite Color: </label>
+        <input type="text" name="favoriteColor" id="favoriteColor"> <br><br>
+        <input type="submit" id="signUp" class="button" value="Sign-Up!">
+    </form>
+
+    {# update form #}
+    {% if updateUser %}
+        <h4>Update {{ updateUser.name }}'s details:</h4>
+        <form action="/doneUpdate" method="post">
+            <input type="text" name="name" id="name" placeholder="Name" value="{{ updateUser.name }}" required>
+            <input type="email" name="email" id="email" placeholder="email@email.email"
+                   value="{{ updateUser.email }}">
+            <input type="date" name="b_day" id="b_day" placeholder="Birth Date" value="{{ updateUser.b_day }}">
+            <input type="text" name="favoriteColor" id="favoriteColor" placeholder="Favorite Color"
+                   value="{{ updateUser.favoriteColor }}">
+            <input type="hidden" name="id" id="id" value="{{ updateUser.id }}">
+            <input type="submit" class="smallButton" value="update" onclick=doneUpdate()>
+        </form>
+    {% endif %}
+
+    {# List of users #}
+    <h4>Take a look at the website's users list</h4>
+    <div id="usersList">
+        <ul>
+            {% for user in allUsers %}
+                <li>
+                    <form action="/deleteUser" method="post" style="display: inline">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <input type="submit" id="delete" value="Delete" class="smallButton">
+                    </form>
+                    <form action="/updateUser" method="post" style="display: inline">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <input type="submit" id="update" value="Update" class="smallButton" onclick=updateMod()>
+                    </form>
+                    Name: {{ user.name }} Email: {{ user.email }} B-day: {{ user.b_day }}
+                    Favorite-Color: {{ user.favoriteColor }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {{ super() }}
+{% endblock %}
+

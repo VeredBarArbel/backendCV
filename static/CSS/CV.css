@@ -174,7 +174,6 @@ form {
 }
 
 #goBack, .button {
-    font-size: 200%;
     font-family: firstFont;
     background-color: var(--black);
     color: var(--white);
@@ -182,4 +181,23 @@ form {
     padding: 13px;
     border: var(--gold) solid 3px;
     font-size: 130%;
+}
+
+.smallButton {
+    font-size: 100%;
+    font-family: firstFont;
+    background-color: var(--black);
+    color: var(--white);
+    margin: .5px;
+    border: var(--gold) solid 1.87px;
+}
+
+.alert {
+    font-size: 170%;
+    font-family: firstFont;
+    background-color: var(--white);
+    color: var(--black);
+    margin: 7px;
+    padding: 7px;
+    border: var(--gold) solid 3px;
 }
