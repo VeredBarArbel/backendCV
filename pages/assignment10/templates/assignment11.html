@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Assignment 11 | Vered-Bar Arbel</title>
+    <script src="{{ url_for('assignment10.static', filename='JS/assignment11.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CV.css') }}">
+
+</head>
+<body style="text-align: center">
+
+<h1>ASSIGNMENT 11 OUT SOURCE</h1>
+<h3>Get User From Frontend</h3>
+<label for="frontendUser">Choose number between 1 to 6</label>
+<input type="number" id="frontendUser" name="frontendUser" max="6" min="1">
+<input type="submit" onclick="getUsers()" class="smallButton">
+<main>
+    {#    here goes the frontend user#}
+</main>
+<br>
+
+<br>
+<h3>Get User From Backend</h3>
+<form action="/assignment11/outer_source" method="post">
+    <label for="backendUser">Choose number between 1 to 6</label>
+    <input type="number" id="backendUser" name="backendUser" max="6" min="1">
+    <input type="submit" class="smallButton">
+</form>
+{% if BEUser %} {#    here goes the backend user#}
+    <div>
+        <img src="{{ BEUser.data.avatar }}" alt="user avatar"> <br>
+        {{ BEUser.data.first_name }} {{ BEUser.data.last_name }}<br>
+        <a href="{{ BEUser.data.email }}">Send Email</a>
+    </div>
+{% endif %}
+
+</body>
+</html>

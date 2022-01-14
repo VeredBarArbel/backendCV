@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, flash
+import json
+
+from flask import Blueprint, render_template, flash, jsonify
 from flask import Flask, redirect, url_for, session, request
 from interact_with_db import interact_db
-
+import requests
 
 # assignment10
 global updateUser
@@ -9,8 +11,9 @@ updateUser = ''
 # blueprint definition
 assignment10 = Blueprint('assignment10', __name__,
                          static_folder='static',
-                         static_url_path='/static',
+                         static_url_path='/assignment10',
                          template_folder='templates')
+
 
 # Routes
 @assignment10.route('/assignment10')
@@ -78,3 +81,28 @@ def doneUpdateFunc():
     interact_db(query, 'commit')
     flash("%s's user updated successfully" % name)
     return redirect('/assignment10')
+
+
+@assignment10.route('/assignment11/users')
+def userJsonFunc():
+    users = interact_db('select * from users;', 'fetch')
+    usersDict = {}
+    for user in users:
+        userToAdd = {
+            "name": user.name,
+            "id": user.id,
+            "email": user.email,
+            "b_day": user.b_day,
+            "favoriteColor": user.favoriteColor,
+        }
+        usersDict[user.id] = userToAdd
+    userJson = jsonify(usersDict)
+    return userJson
+
+@assignment10.route('/assignment11/outer_source', methods=["post", "get"])
+def outerSource():
+    if request.method == "POST" and "backendUser" in request.form:
+        userNum = request.form['backendUser']
+        BEUser = requests.get(f"https://reqres.in/api/users/{userNum}").json()
+        return render_template('assignment11.html', BEUser=BEUser)
+    return render_template('assignment11.html')
