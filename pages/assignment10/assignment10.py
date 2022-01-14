@@ -99,6 +99,7 @@ def userJsonFunc():
     userJson = jsonify(usersDict)
     return userJson
 
+
 @assignment10.route('/assignment11/outer_source', methods=["post", "get"])
 def outerSource():
     if request.method == "POST" and "backendUser" in request.form:
@@ -106,3 +107,24 @@ def outerSource():
         BEUser = requests.get(f"https://reqres.in/api/users/{userNum}").json()
         return render_template('assignment11.html', BEUser=BEUser)
     return render_template('assignment11.html')
+
+
+@assignment10.route('/assignment12/restapi_users', defaults={'user_id': 29})
+@assignment10.route('/assignment12/restapi_users/<int:user_id>')
+def get_users_func(user_id):
+    query = 'select * from users where id=%s;' % user_id
+    users = interact_db(query=query, query_type='fetch')
+    if len(users) == 0:
+        return_dict = {
+            '1.Status': 'Oh no, the process failed :(',
+            '2.Message': "Sorry, but we couldn't find your user"
+        }
+    else:
+        return_dict = {
+            '1.Status': 'Success! Here is your user:',
+            '2.Name': users[0].name,
+            '3.Email': users[0].email,
+            '4.Birth date': users[0].b_day,
+            '5.Favorite color': users[0].favoriteColor,
+        }
+    return jsonify(return_dict)
